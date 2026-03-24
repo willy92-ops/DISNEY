@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>Disney+ | Streaming de films et séries</title>
+  <meta name="description" content="Regardez des films et séries en streaming sur Disney+. Accédez à des milliers de contenus Disney, Pixar, Marvel, Star Wars et National Geographic." />
+  <meta name="keywords" content="Disney+, streaming, films, séries, Marvel, Star Wars, Pixar, National Geographic" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Disney+ | Streaming de films et séries" />
+  <meta property="og:description" content="Regardez vos films et séries préférés en streaming illimité." />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon-V1.png" />
+
+  <!-- Police Inspire (Google Fonts approximation) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300;400;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===========================
+       VARIABLES CSS (Charte graphique Disney+)
+       =========================== */
+    :root {
+      --color-bg-main: #040b18;          /* Fond principal bleu très sombre */
+      --color-bg-section: #0a1628;       /* Fond sections */
+      --color-bg-card: #0d1f3c;         /* Fond cartes */
+      --color-primary: #02D6E8;          /* Boutons principaux (cyan) */
+      --color-primary-hover: #10B5C5;    /* Boutons au survol */
+      --color-secondary: #136878;        /* Boutons grisés */
+      --color-text: rgb(192, 192, 192);  /* Couleur texte principale */
+      --color-text-white: #ffffff;       /* Texte blanc */
+      --color-text-light: #b0b8c8;      /* Texte clair */
+      --color-border: rgba(2, 214, 232, 0.3); /* Bordures cyan */
+      --color-separator: rgba(255,255,255,0.1); /* Séparateurs */
+
+      /* Typographie */
+      --font-main: 'Nunito', 'Inspire', sans-serif;
+      --font-size-base: 18px;
+      --font-weight-normal: 400;
+      --line-height-base: 25px;
+
+      /* Espacement */
+      --spacing-xs: 8px;
+      --spacing-sm: 16px;
+      --spacing-md: 32px;
+      --spacing-lg: 64px;
+      --spacing-xl: 96px;
+
+      /* Rayons */
+      --radius-btn: 4px;
+      --radius-card: 8px;
+    }
+
+    /* ===========================
+       RESET & BASE
+       =========================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth; /* Défilement fluide */
+    }
+
+    body {
+      font-family: var(--font-main);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-normal);
+      color: var(--color-text);
+      background-color: var(--color-bg-main);
+      line-height: var(--line-height-base);
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ===========================
+       HEADER / NAVIGATION
+       =========================== */
+    header {
+      position: fixed;           /* Fixé en haut de page */
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: linear-gradient(to bottom, rgba(4, 11, 24, 0.95), transparent);
+      transition: background 0.3s ease;
+    }
+
+    /* Header qui devient opaque au scroll */
+    header.scrolled {
+      background: rgba(4, 11, 24, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* Logo Disney+ dans le header */
+    .header-logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    /* Navigation principale */
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+
+    /* Lien de langue (FR / EN) */
+    .lang-switcher {
+      display: flex;
+      gap: var(--spacing-xs);
+      align-items: center;
+    }
+
+    .lang-btn {
+      background: none;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-white);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: var(--font-main);
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn.active,
+    .lang-btn:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #000;
+    }
+
+    /* Bouton "S'abonner" dans le header */
+    .btn-subscribe-header {
+      background: var(--color-primary);
+      color: #000;
+      border: none;
+      padding: 10px 24px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-main);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-subscribe-header:hover {
+      background: var(--color-primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Bouton "Se connecter" */
+    .btn-login {
+      background: transparent;
+      color: var(--color-text-white);
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 10px 24px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-main);
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-login:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* ===========================
+       HERO SECTION
+       =========================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px var(--spacing-md) var(--spacing-lg);
+      overflow: hidden;
+    }
+
+    /* Image de fond du hero (grille de films) */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('original_2.jpeg');
+      background-size: cover;
+      background-position: center top;
+      opacity: 0.25;                  /* Opacité réduite pour lisibilité */
+      z-index: 0;
+    }
+
+    /* Dégradé par-dessus le fond */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(4, 11, 24, 0.3) 0%,
+        rgba(4, 11, 24, 0.6) 50%,
+        rgba(4, 11, 24, 1) 100%
+      );
+    }
+
+    /* Contenu du hero (au-dessus du fond) */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      animation: fadeInUp 0.8s ease both; /* Animation d'entrée */
+    }
+
+    /* Logo Disney+ principal */
+    .hero-logo {
+      margin: 0 auto var(--spacing-md);
+      width: 280px;
+      filter: drop-shadow(0 0 30px rgba(2, 214, 232, 0.4));
+      animation: floatLogo 3s ease-in-out infinite; /* Animation flottante */
+    }
+
+    /* Animation flottante du logo */
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Titre principal */
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 700;
+      color: var(--color-text-white);
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.2;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    /* Sous-titre */
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--color-text);
+      margin-bottom: var(--spacing-md);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Formulaire d'inscription email */
+    .hero-form {
+      display: flex;
+      gap: var(--spacing-xs);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .hero-form input[type="email"] {
+      padding: 14px 20px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-btn);
+      background: rgba(255,255,255,0.08);
+      color: var(--color-text-white);
+      font-family: var(--font-main);
+      font-size: 16px;
+      width: 320px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .hero-form input[type="email"]:focus {
+      border-color: var(--color-primary);
+    }
+
+    .hero-form input[type="email"]::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Bouton CTA principal */
+    .btn-cta {
+      background: var(--color-primary);
+      color: #000;
+      border: none;
+      padding: 14px 32px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-main);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 20px rgba(2, 214, 232, 0.3);
+      white-space: nowrap;
+    }
+
+    .btn-cta:hover {
+      background: var(--color-primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(2, 214, 232, 0.5);
+    }
+
+    /* Petite mention légale */
+    .hero-legal {
+      font-size: 13px;
+      color: rgba(192, 192, 192, 0.6);
+    }
+
+    /* Image des appareils dans le hero */
+    .hero-devices {
+      position: relative;
+      z-index: 1;
+      margin-top: var(--spacing-md);
+      max-width: 900px;
+      width: 100%;
+      animation: fadeInUp 1s ease 0.3s both;
+    }
+
+    /* ===========================
+       ANIMATION D'ENTRÉE GLOBALE
+       =========================== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===========================
+       SECTION : CATALOGUE / CONTENU
+       =========================== */
+    .section-content {
+      padding: var(--spacing-xl) var(--spacing-md);
+      background: linear-gradient(to bottom, var(--color-bg-main), var(--color-bg-section));
+      text-align: center;
+    }
+
+    .section-content h2 {
+      font-size: clamp(24px, 4vw, 40px);
+      color: var(--color-text-white);
+      margin-bottom: var(--spacing-sm);
+      font-weight: 700;
+    }
+
+    .section-content p {
+      font-size: 18px;
+      color: var(--color-text);
+      max-width: 700px;
+      margin: 0 auto var(--spacing-lg);
+      line-height: 28px;
+    }
+
+    /* Image du catalogue */
+    .catalog-image {
+      max-width: 1100px;
+      margin: 0 auto;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .catalog-image img {
+      width: 100%;
+      border-radius: var(--radius-card);
+      transition: transform 0.5s ease;
+    }
+
+    .catalog-image:hover img {
+      transform: scale(1.02);
+    }
+
+    /* ===========================
+       SECTION : AVANTAGES (FEATURES)
+       =========================== */
+    .section-features {
+      padding: var(--spacing-xl) var(--spacing-md);
+      background: var(--color-bg-section);
+    }
+
+    .section-features h2 {
+      text-align: center;
+      font-size: clamp(24px, 4vw, 40px);
+      color: var(--color-text-white);
+      margin-bottom: var(--spacing-lg);
+      font-weight: 700;
+    }
+
+    /* Grille des avantages (4 colonnes) */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--spacing-md);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Carte d'avantage individuelle */
+    .feature-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: var(--spacing-md);
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);           /* Légère élévation au survol */
+      border-color: var(--color-primary);
+      box-shadow: 0 10px 40px rgba(2, 214, 232, 0.15);
+    }
+
+    /* Icône de la carte */
+    .feature-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto var(--spacing-sm);
+    }
+
+    .feature-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      color: var(--color-text-white);
+      margin-bottom: var(--spacing-xs);
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      color: var(--color-text);
+      line-height: 22px;
+    }
+
+    /* ===========================
+       SECTION : CONTENU À LA UNE (SHOWCASE)
+       =========================== */
+    .section-showcase {
+      padding: var(--spacing-xl) var(--spacing-md);
+      background: linear-gradient(to bottom, var(--color-bg-section), var(--color-bg-main));
+    }
+
+    .section-showcase h2 {
+      text-align: center;
+      font-size: clamp(24px, 4vw, 40px);
+      color: var(--color-text-white);
+      margin-bottom: var(--spacing-lg);
+      font-weight: 700;
+    }
+
+    /* Image de mise en avant */
+    .showcase-image {
+      max-width: 1100px;
+      margin: 0 auto;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    .showcase-image img {
+      width: 100%;
+      border-radius: var(--radius-card);
+    }
+
+    /* ===========================
+       SECTION : PLANS TARIFAIRES
+       =========================== */
+    .section-plans {
+      padding: var(--spacing-xl) var(--spacing-md);
+      background: var(--color-bg-main);
+      text-align: center;
+    }
+
+    .section-plans h2 {
+      font-size: clamp(24px, 4vw, 40px);
+      color: var(--color-text-white);
+      margin-bottom: var(--spacing-sm);
+      font-weight: 700;
+    }
+
+    .section-plans > p {
+      font-size: 18px;
+      color: var(--color-text);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    /* Grille des plans */
+    .plans-grid {
+      display: flex;
+      gap: var(--spacing-sm);
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto var(--spacing-lg);
+    }
+
+    /* Carte de plan tarifaire */
+    .plan-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      padding: var(--spacing-md);
+      flex: 1;
+      min-width: 220px;
+      max-width: 280px;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(2, 214, 232, 0.2);
+    }
+
+    /* Badge "Populaire" sur le plan recommandé */
+    .plan-card.popular {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 30px rgba(2, 214, 232, 0.15);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-primary);
+      color: #000;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-text-white);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .plan-price {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .plan-price span {
+      font-size: 16px;
+      color: var(--color-text);
+    }
+
+    .plan-desc {
+      font-size: 14px;
+      color: var(--color-text);
+      margin-bottom: var(--spacing-md);
+      line-height: 20px;
+    }
+
+    /* Liste des fonctionnalités du plan */
+    .plan-features {
+      text-align: left;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .plan-features li {
+      font-size: 14px;
+      color: var(--color-text);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--color-separator);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Coche verte devant chaque feature */
+    .plan-features li::before {
+      content: '✓';
+      color: var(--color-primary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Bouton choisir un plan */
+    .btn-plan {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-main);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-plan.primary {
+      background: var(--color-primary);
+      color: #000;
+    }
+
+    .btn-plan.primary:hover {
+      background: var(--color-primary-hover);
+    }
+
+    .btn-plan.secondary {
+      background: var(--color-secondary);
+      color: var(--color-text-white);
+    }
+
+    .btn-plan.secondary:hover {
+      background: #1a8a9e;
+    }
+
+    /* ===========================
+       SECTION : FAQ (ACCORDION)
+       =========================== */
+    .section-faq {
+      padding: var(--spacing-xl) var(--spacing-md);
+      background: var(--color-bg-section);
+    }
+
+    .section-faq h2 {
+      text-align: center;
+      font-size: clamp(24px, 4vw, 40px);
+      color: var(--color-text-white);
+      margin-bottom: var(--spacing-lg);
+      font-weight: 700;
+    }
+
+    /* Liste FAQ */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Item FAQ individuel */
+    .faq-item {
+      border-bottom: 1px solid var(--color-separator);
+      overflow: hidden;
+    }
+
+    /* Bouton question FAQ */
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-sm) 0;
+      background: none;
+      border: none;
+      color: var(--color-text-white);
+      font-family: var(--font-main);
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      gap: var(--spacing-sm);
+      transition: color 0.2s ease;
+    }
+
+    .faq-question:hover {
+      color: var(--color-primary);
+    }
+
+    /* Icône +/- de la FAQ */
+    .faq-icon {
+      font-size: 22px;
+      color: var(--color-primary);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      line-height: 1;
+    }
+
+    /* Réponse FAQ (masquée par défaut) */
+    .faq-answer {
+      max-height: 0;                         /* Fermé par défaut */
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+
+    /* Réponse ouverte */
+    .faq-answer.open {
+      max-height: 300px;                     /* Valeur haute pour animation */
+      padding-bottom: var(--spacing-sm);
+    }
+
+    .faq-answer p {
+      color: var(--color-text);
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    /* Rotation de l'icône quand ouverte */
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    /* ===========================
+       FOOTER
+       =========================== */
+    footer {
+      background: var(--color-bg-main);
+      border-top: 1px solid var(--color-separator);
+      padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
+    }
+
+    /* Grille du footer */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: var(--spacing-md);
+      max-width: 1100px;
+      margin: 0 auto var(--spacing-lg);
+    }
+
+    .footer-col h4 {
+      color: var(--color-text-white);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-col ul li a {
+      color: var(--color-text);
+      font-size: 14px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-col ul li a:hover {
+      color: var(--color-primary);
+    }
+
+    /* Bas du footer */
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid var(--color-separator);
+    }
+
+    .footer-logo img {
+      height: 30px;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: rgba(192, 192, 192, 0.5);
+    }
+
+    /* Lien de changement de langue dans le footer */
+    .footer-lang a {
+      color: var(--color-text);
+      font-size: 13px;
+      padding: 6px 12px;
+      border: 1px solid var(--color-separator);
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .footer-lang a:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* ===========================
+       BANNIÈRE COOKIES (fixe en bas)
+       =========================== */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(10, 22, 40, 0.98);
+      border-top: 1px solid var(--color-border);
+      padding: var(--spacing-sm) var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      backdrop-filter: blur(10px);
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .cookie-banner p {
+      font-size: 14px;
+      color: var(--color-text);
+      max-width: 700px;
+      line-height: 20px;
+    }
+
+    .cookie-banner p a {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+
+    .cookie-actions {
+      display: flex;
+      gap: var(--spacing-xs);
+      flex-wrap: wrap;
+    }
+
+    .btn-cookie-accept {
+      background: var(--color-primary);
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-main);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-cookie-accept:hover {
+      background: var(--color-primary-hover);
+    }
+
+    .btn-cookie-refuse {
+      background: transparent;
+      color: var(--color-text);
+      border: 1px solid var(--color-separator);
+      padding: 10px 20px;
+      border-radius: var(--radius-btn);
+      font-family: var(--font-main);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-cookie-refuse:hover {
+      border-color: var(--color-text);
+    }
+
+    /* ===========================
+       SÉPARATEUR VISUEL ENTRE SECTIONS
+       =========================== */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-border), transparent);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ===========================
+       RESPONSIVE - MOBILE (< 768px)
+       =========================== */
+    @media (max-width: 768px) {
+      /* Header simplifié sur mobile */
+      header {
+        padding: 12px var(--spacing-sm);
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .header-nav {
+        gap: var(--spacing-xs);
+      }
+
+      .btn-subscribe-header,
+      .btn-login {
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+
+      /* Hero ajusté */
+      .hero {
+        padding: 100px var(--spacing-sm) var(--spacing-md);
+      }
+
+      .hero-logo {
+        width: 200px;
+      }
+
+      /* Formulaire en colonne sur mobile */
+      .hero-form {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-form input[type="email"] {
+        width: 100%;
+        max-width: 340px;
+      }
+
+      /* Plans en colonne sur mobile */
+      .plans-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .plan-card {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      /* Footer simplifié */
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* ===========================
+       RESPONSIVE - TABLETTE (768px - 1024px)
+       =========================== */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ===========================
+       UTILITAIRES
+       =========================== */
+    /* Classe pour masquer un élément (JS) */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===========================
+       HEADER / NAVIGATION
+       =========================== -->
+  <header id="main-header">
+    <!-- Logo Disney+ -->
+    <div class="header-logo">
+      <a href="index.html" aria-label="Disney+ Accueil">
+        <img src="grand-logo-disney-plus.png" alt="Disney+" />
+      </a>
+    </div>
+
+    <!-- Navigation : langue + boutons -->
+    <nav class="header-nav" role="navigation" aria-label="Navigation principale">
+      <!-- Sélecteur de langue -->
+      <div class="lang-switcher" role="group" aria-label="Choisir la langue">
+        <button class="lang-btn active" onclick="window.location.href='index.html'" aria-current="true" aria-label="Langue française">FR</button>
+        <button class="lang-btn" onclick="window.location.href='index-en.html'" aria-label="Switch to English">EN</button>
+      </div>
+      <!-- Bouton Se connecter -->
+      <button class="btn-login" aria-label="Se connecter à votre compte Disney+">Se connecter</button>
+      <!-- Bouton S'abonner -->
+      <button class="btn-subscribe-header" onclick="document.querySelector('.section-plans').scrollIntoView({behavior:'smooth'})" aria-label="S'abonner à Disney+">S'abonner</button>
+    </nav>
+  </header>
+
+  <!-- ===========================
+       SECTION HERO
+       =========================== -->
+  <main>
+    <section class="hero" aria-label="Présentation Disney+">
+      <!-- Fond avec la grille de films -->
+      <div class="hero-bg" role="img" aria-label="Grille de films et séries disponibles sur Disney+"></div>
+
+      <!-- Contenu principal du hero -->
+      <div class="hero-content">
+        <!-- Logo principal -->
+        <img
+          class="hero-logo"
+          src="grand-logo-disney-plus.png"
+          alt="Disney+ - Streaming de films et séries"
+        />
+
+        <!-- Titre accrocheur -->
+        <h1>Les histoires sans fin commencent ici</h1>
+
+        <!-- Description courte -->
+        <p>
+          Des milliers de films, séries, documentaires et bien plus encore. 
+          Disney, Pixar, Marvel, Star Wars et National Geographic — tout en un seul endroit.
+        </p>
+
+        <!-- Formulaire d'inscription avec email -->
+        <form class="hero-form" onsubmit="handleSubscribe(event)" aria-label="Formulaire d'inscription">
+          <input
+            type="email"
+            id="hero-email"
+            name="email"
+            placeholder="Entrez votre adresse e-mail"
+            required
+            aria-label="Adresse e-mail"
+            aria-required="true"
+          />
+          <button type="submit" class="btn-cta" aria-label="Commencer votre abonnement Disney+">
+            Commencer →
+          </button>
+        </form>
+
+        <!-- Mention légale -->
+        <p class="hero-legal">
+          Essai gratuit disponible. Sans engagement. Annulable à tout moment.
+        </p>
+      </div>
+
+      <!-- Image appareils (TV, laptop, tablette, smartphone) -->
+      <div class="hero-devices">
+        <img
+          src="original.jpeg"
+          alt="Disney+ disponible sur TV, ordinateur, tablette et smartphone"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- Séparateur -->
+    <div class="section-divider"></div>
+
+    <!-- ===========================
+         SECTION : CATALOGUE
+         =========================== -->
+    <section class="section-content" aria-labelledby="catalog-title">
+      <h2 id="catalog-title">Un catalogue immense vous attend</h2>
+      <p>
+        Découvrez des milliers de films et épisodes de séries provenant des univers Disney, Pixar, Marvel, 
+        Star Wars et National Geographic. De nouvelles histoires à explorer chaque semaine.
+      </p>
+
+      <!-- Image du catalogue de films -->
+      <div class="catalog-image">
+        <img
+          src="original_2.jpeg"
+          alt="Catalogue de films et séries Disney+"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- Séparateur -->
+    <div class="section-divider"></div>
+
+    <!-- ===========================
+         SECTION : AVANTAGES
+         =========================== -->
+    <section class="section-features" aria-labelledby="features-title">
+      <h2 id="features-title">Pourquoi choisir Disney+ ?</h2>
+
+      <div class="features-grid">
+
+        <!-- Avantage 1 : Contenus exclusifs -->
+        <article class="feature-card" aria-label="Contenus exclusifs">
+          <div class="feature-icon">
+            <img src="logo-bobine-film.png" alt="Icône bobine de film" />
+          </div>
+          <h3>Contenus exclusifs</h3>
+          <p>
+            Accédez à des films et séries originaux disponibles uniquement sur Disney+, 
+            dès leur première diffusion.
+          </p>
+        </article>
+
+        <!-- Avantage 2 : Multi-appareils -->
+        <article class="feature-card" aria-label="Multi-appareils">
+          <div class="feature-icon">
+            <img src="logo-ecran-couleur.png" alt="Icône multi-appareils" />
+          </div>
+          <h3>Sur tous vos appareils</h3>
+          <p>
+            Regardez Disney+ sur votre télévision, ordinateur, tablette ou smartphone. 
+            Jusqu'à 4 écrans simultanément.
+          </p>
+        </article>
+
+        <!-- Avantage 3 : Profils familiaux -->
+        <article class="feature-card" aria-label="Profils familiaux">
+          <div class="feature-icon">
+            <img src="logo-tablet.png" alt="Icône tablette" />
+          </div>
+          <h3>Jusqu'à 7 profils</h3>
+          <p>
+            Créez des profils personnalisés pour chaque membre de la famille, 
+            avec un contrôle parental intégré.
+          </p>
+        </article>
+
+        <!-- Avantage 4 : Téléchargement offline -->
+        <article class="feature-card" aria-label="Téléchargement offline">
+          <div class="feature-icon">
+            <img src="logo-manette.png" alt="Icône téléchargement" />
+          </div>
+          <h3>Téléchargez et regardez</h3>
+          <p>
+            Téléchargez vos contenus préférés et regardez-les sans connexion internet, 
+            où que vous soyez.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Séparateur -->
+    <div class="section-divider"></div>
+
+    <!-- ===========================
+         SECTION : CONTENU À LA UNE
+         =========================== -->
+    <section class="section-showcase" aria-labelledby="showcase-title">
+      <h2 id="showcase-title">Les séries dont tout le monde parle</h2>
+
+      <!-- Image showcase (Shogun + autres séries) -->
+      <div class="showcase-image">
+        <img
+          src="original_3.jpeg"
+          alt="Séries phares Disney+ : Shogun, The Acolyte, The Bear et plus"
+          loading="lazy"
+        />
+      </div>
+    </section>
+
+    <!-- Séparateur -->
+    <div class="section-divider"></div>
+
+    <!-- ===========================
+         SECTION : PLANS TARIFAIRES
+         =========================== -->
+    <section class="section-plans" id="plans" aria-labelledby="plans-title">
+      <h2 id="plans-title" class="section-plans">Choisissez votre abonnement</h2>
+      <p>Sans engagement, annulable à tout moment.</p>
+
+      <div class="plans-grid">
+
+        <!-- Plan Standard avec pub -->
+        <article class="plan-card" aria-label="Plan Standard avec publicités">
+          <div class="plan-name">Standard</div>
+          <div class="plan-price">5,99 € <span>/ mois</span></div>
+          <p class="plan-desc">Avec publicités</p>
+          <ul class="plan-features" aria-label="Fonctionnalités incluses">
+            <li>Accès à tout le catalogue</li>
+            <li>Qualité Full HD</li>
+            <li>2 écrans simultanés</li>
+            <li>5 profils</li>
+          </ul>
+          <button class="btn-plan secondary" aria-label="Choisir le plan Standard">Choisir</button>
+        </article>
+
+        <!-- Plan Standard (recommandé) -->
+        <article class="plan-card popular" aria-label="Plan Standard sans publicités - Recommandé">
+          <div class="plan-badge">Recommandé</div>
+          <div class="plan-name">Standard</div>
+          <div class="plan-price">8,99 € <span>/ mois</span></div>
+          <p class="plan-desc">Sans publicités</p>
+          <ul class="plan-features" aria-label="Fonctionnalités incluses">
+            <li>Accès à tout le catalogue</li>
+            <li>Qualité Full HD</li>
+            <li>2 écrans simultanés</li>
+            <li>5 profils</li>
+            <li>Téléchargements inclus</li>
+          </ul>
+          <button class="btn-plan primary" aria-label="Choisir le plan Standard sans publicités">Choisir</button>
+        </article>
+
+        <!-- Plan Premium -->
+        <article class="plan-card" aria-label="Plan Premium">
+          <div class="plan-name">Premium</div>
+          <div class="plan-price">11,99 € <span>/ mois</span></div>
+          <p class="plan-desc">L'expérience ultime</p>
+          <ul class="plan-features" aria-label="Fonctionnalités incluses">
+            <li>Accès à tout le catalogue</li>
+            <li>Qualité 4K Ultra HD + HDR</li>
+            <li>4 écrans simultanés</li>
+            <li>7 profils</li>
+            <li>Téléchargements inclus</li>
+            <li>Son Dolby Atmos</li>
+          </ul>
+          <button class="btn-plan secondary" aria-label="Choisir le plan Premium">Choisir</button>
+        </article>
+
+      </div>
+
+      <!-- Note légale sous les plans -->
+      <p style="font-size: 13px; color: rgba(192,192,192,0.5); max-width: 700px; margin: 0 auto;">
+        Les prix indiqués sont en euros TTC. L'abonnement se renouvelle automatiquement. 
+        Vous pouvez annuler à tout moment depuis votre compte.
+      </p>
+    </section>
+
+    <!-- Séparateur -->
+    <div class="section-divider"></div>
+
+    <!-- ===========================
+         SECTION : FAQ
+         =========================== -->
+    <section class="section-faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Questions fréquentes</h2>
+
+      <div class="faq-list" role="list">
+
+        <!-- Question 1 -->
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-question"
+            onclick="toggleFaq(this)"
+            aria-expanded="false"
+            aria-controls="faq-answer-1"
+          >
+            Qu'est-ce que Disney+ ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-answer-1" role="region" aria-label="Réponse : Qu'est-ce que Disney+ ?">
+            <p>
+              Disney+ est un service de streaming vidéo à la demande proposant des milliers de films, 
+              séries, documentaires et contenus exclusifs issus des univers Disney, Pixar, Marvel, 
+              Star Wars et National Geographic. Disponible sur tous vos appareils connectés.
+            </p>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-question"
+            onclick="toggleFaq(this)"
+            aria-expanded="false"
+            aria-controls="faq-answer-2"
+          >
+            Sur quels appareils puis-je regarder Disney+ ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-answer-2" role="region">
+            <p>
+              Disney+ est disponible sur Smart TV, smartphones (iOS et Android), tablettes, 
+              ordinateurs (Mac et PC), consoles de jeux (PlayStation et Xbox), 
+              Chromecast, Apple TV et Amazon Fire Stick.
+            </p>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-question"
+            onclick="toggleFaq(this)"
+            aria-expanded="false"
+            aria-controls="faq-answer-3"
+          >
+            Puis-je regarder Disney+ sans connexion internet ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-answer-3" role="region">
+            <p>
+              Oui ! Avec les plans Standard et Premium (sans publicités), vous pouvez télécharger 
+              des films et épisodes sur votre appareil mobile pour les regarder hors connexion. 
+              Le contenu téléchargé est disponible pendant 30 jours.
+            </p>
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-question"
+            onclick="toggleFaq(this)"
+            aria-expanded="false"
+            aria-controls="faq-answer-4"
+          >
+            Comment annuler mon abonnement ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-answer-4" role="region">
+            <p>
+              Vous pouvez annuler votre abonnement à tout moment depuis les paramètres de votre compte, 
+              sans frais supplémentaires. Vous continuerez à avoir accès à Disney+ jusqu'à la fin 
+              de la période déjà payée.
+            </p>
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="faq-item" role="listitem">
+          <button
+            class="faq-question"
+            onclick="toggleFaq(this)"
+            aria-expanded="false"
+            aria-controls="faq-answer-5"
+          >
+            Y a-t-il un contrôle parental ?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer" id="faq-answer-5" role="region">
+            <p>
+              Oui, Disney+ intègre un système de contrôle parental complet. Vous pouvez 
+              définir des restrictions de contenu par profil, protéger les paramètres avec 
+              un code PIN et créer des profils enfants avec accès limité aux contenus adaptés.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ===========================
+       FOOTER
+       =========================== -->
+  <footer role="contentinfo">
+    <div class="footer-grid">
+
+      <!-- Colonne : À propos -->
+      <div class="footer-col">
+        <h4>À propos</h4>
+        <ul>
+          <li><a href="#" aria-label="En savoir plus sur Disney+">À propos de Disney+</a></li>
+          <li><a href="#">Carrières</a></li>
+          <li><a href="#">Newsroom</a></li>
+          <li><a href="#">Investisseurs</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne : Support -->
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Centre d'aide</a></li>
+          <li><a href="#">Appareils compatibles</a></li>
+          <li><a href="#">Accessibilité</a></li>
+          <li><a href="#">Nous contacter</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne : Légal -->
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="#">Conditions d'utilisation</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">Mentions légales</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne : Réseaux sociaux -->
+      <div class="footer-col">
+        <h4>Suivez-nous</h4>
+        <ul>
+          <li><a href="#" aria-label="Disney+ sur Facebook">Facebook</a></li>
+          <li><a href="#" aria-label="Disney+ sur Instagram">Instagram</a></li>
+          <li><a href="#" aria-label="Disney+ sur Twitter/X">Twitter / X</a></li>
+          <li><a href="#" aria-label="Disney+ sur YouTube">YouTube</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bas du footer : logo + copyright + langue -->
+    <div class="footer-bottom">
+      <!-- Logo Disney+ petit -->
+      <div class="footer-logo">
+        <img src="icone-disney.png" alt="Disney+" />
+      </div>
+
+      <!-- Copyright -->
+      <p class="footer-copy">
+        © 2025 Disney. Tous droits réservés.
+      </p>
+
+      <!-- Lien vers la version anglaise -->
+      <div class="footer-lang">
+        <a href="index-en.html" aria-label="Switch to English version">🌍 English</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===========================
+       BANNIÈRE COOKIES
+       =========================== -->
+  <div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Gestion des cookies" aria-live="polite">
+    <p>
+      Nous utilisons des cookies pour améliorer votre expérience sur Disney+. 
+      En continuant, vous acceptez notre <a href="#">politique de confidentialité</a>.
+    </p>
+    <div class="cookie-actions">
+      <button class="btn-cookie-refuse" onclick="closeCookieBanner()" aria-label="Refuser les cookies non essentiels">Refuser</button>
+      <button class="btn-cookie-accept" onclick="acceptCookies()" aria-label="Accepter tous les cookies">Accepter</button>
+    </div>
+  </div>
+
+  <!-- ===========================
+       JAVASCRIPT
+       =========================== -->
+  <script>
+    /**
+     * ===========================
+     * GESTION DU HEADER AU SCROLL
+     * Le header devient opaque quand on fait défiler la page
+     * ===========================
+     */
+    const header = document.getElementById('main-header');
+
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 50) {
+        // L'utilisateur a défilé : on rend le header opaque
+        header.classList.add('scrolled');
+      } else {
+        // Retour en haut : header transparent
+        header.classList.remove('scrolled');
+      }
+    });
+
+    /**
+     * ===========================
+     * GESTION DE LA FAQ (ACCORDION)
+     * Ouvre/ferme les réponses au clic sur les questions
+     * ===========================
+     */
+    function toggleFaq(button) {
+      // Récupère l'élément parent .faq-item
+      const faqItem = button.closest('.faq-item');
+      // Récupère la réponse associée
+      const answer = faqItem.querySelector('.faq-answer');
+      // État actuel (ouvert ou fermé)
+      const isOpen = faqItem.classList.contains('active');
+
+      // Ferme TOUS les items ouverts (comportement accordion)
+      document.querySelectorAll('.faq-item.active').forEach(function (item) {
+        item.classList.remove('active');
+        item.querySelector('.faq-answer').classList.remove('open');
+        item.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+      });
+
+      // Si l'item était fermé, on l'ouvre
+      if (!isOpen) {
+        faqItem.classList.add('active');
+        answer.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    /**
+     * ===========================
+     * GESTION DU FORMULAIRE HERO
+     * Validation et redirection vers la page d'abonnement
+     * ===========================
+     */
+    function handleSubscribe(event) {
+      event.preventDefault(); // Empêche le rechargement de page
+
+      const emailInput = document.getElementById('hero-email');
+      const email = emailInput.value.trim();
+
+      // Validation simple de l'email
+      if (!email || !email.includes('@')) {
+        // Alerte accessible
+        emailInput.setAttribute('aria-invalid', 'true');
+        emailInput.style.borderColor = '#ff4444';
+        emailInput.placeholder = 'Adresse e-mail invalide';
+        return;
+      }
+
+      // Email valide : réinitialisation du style
+      emailInput.setAttribute('aria-invalid', 'false');
+      emailInput.style.borderColor = '';
+
+      // Simulation de redirection vers la page de paiement
+      // En production, ici on enverrait l'email au serveur
+      console.log('Email enregistré :', email);
+      alert('Bienvenue sur Disney+ ! Vous allez être redirigé vers la page d\'abonnement.');
+
+      // Scroll vers les plans tarifaires
+      document.querySelector('.section-plans').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /**
+     * ===========================
+     * GESTION DES COOKIES
+     * ===========================
+     */
+
+    /**
+     * Accepte tous les cookies
+     * Sauvegarde le consentement en localStorage et cache la bannière
+     */
+    function acceptCookies() {
+      localStorage.setItem('disney_cookie_consent', 'accepted');
+      closeCookieBanner();
+    }
+
+    /**
+     * Ferme la bannière cookies sans accepter
+     */
+    function closeCookieBanner() {
+      const banner = document.getElementById('cookie-banner');
+      if (banner) {
+        banner.style.animation = 'slideDown 0.3s ease forwards';
+        // Crée l'animation de sortie
+        banner.style.transform = 'translateY(100%)';
+        banner.style.transition = 'transform 0.3s ease';
+        setTimeout(function () {
+          banner.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    /**
+     * Vérifie si le consentement cookies a déjà été donné
+     * Si oui, on ne montre pas la bannière
+     */
+    (function checkCookieConsent() {
+      const consent = localStorage.getItem('disney_cookie_consent');
+      if (consent === 'accepted') {
+        // Consentement déjà donné : on cache directement la bannière
+        const banner = document.getElementById('cookie-banner');
+        if (banner) {
+          banner.classList.add('hidden');
+        }
+      }
+    })(); // Fonction auto-exécutée au chargement
+
+    /**
+     * ===========================
+     * ANIMATION D'ENTRÉE DES SECTIONS
+     * Utilise l'Intersection Observer API pour animer les éléments
+     * quand ils entrent dans le viewport (scroll)
+     * ===========================
+     */
+    const observerOptions = {
+      threshold: 0.1,        // Déclenche quand 10% de l'élément est visible
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          // Ajoute la classe d'animation quand visible
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          // On arrête d'observer une fois l'animation jouée
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Applique l'observation aux cartes et sections
+    document.querySelectorAll('.feature-card, .plan-card, .catalog-image, .showcase-image').forEach(function (el) {
+      // État initial (invisible, légèrement décalé vers le bas)
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      // Lance l'observation
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
